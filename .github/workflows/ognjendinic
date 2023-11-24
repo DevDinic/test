@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Adjust with your actual dependency installation command
+
+      - name: Run tests
+        run: |
+          python -m unittest discover  # Adjust with your actual test command
+
+      - name: Deploy your project (if applicable)
+        run: |
+          # Add commands to deploy your project
+          # For example, you might deploy to a server or a cloud service
